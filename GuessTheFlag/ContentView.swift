@@ -49,7 +49,7 @@ struct ContentView: View {
   var numberOfRemainingQuestions: Int {
     gameMaximumQuestion - (numberOfQuestionsAnswered + skippedQuestions)
   }
-
+  
   
   @ViewBuilder
   var conditionalNumberOfQuestionsSkippedView: some View {
@@ -58,9 +58,11 @@ struct ContentView: View {
     } else {
       Spacer()
       Text("Skipped questions: \(skippedQuestions)")
+      //        .prominentTitle()
     }
     
   }
+  
   
   @ViewBuilder
   var conditionalNumberOfRemainingQuestionsView: some View {
@@ -80,11 +82,11 @@ struct ContentView: View {
       
       LinearGradient(colors: [.gray, .clear], startPoint: .top, endPoint: .bottom)
         .ignoresSafeArea()
-            
+      
       VStack {
         
         Spacer()
-
+        
         VStack {
           Text("Tap the flag of")
             .font(.subheadline.weight(.heavy))
@@ -128,6 +130,8 @@ struct ContentView: View {
             Text("Your score: \(userScore) / \(numberOfQuestionsAnswered)")
             conditionalNumberOfQuestionsSkippedView
           }
+          .arialPolicity()
+          
           
           conditionalNumberOfRemainingQuestionsView
         }
@@ -137,7 +141,7 @@ struct ContentView: View {
         
         Button("Ask another question") {
           skippedQuestions = min(1 + skippedQuestions, gameMaximumQuestion - numberOfQuestionsAnswered)
-
+          
           guard handleGameSessionFinishedIfNeeded() == false else { return }
           
           askQuestion()
@@ -147,6 +151,7 @@ struct ContentView: View {
           resetGameCounter()
         }
         .padding()
+        .arialPolicity()
         
         Spacer()
         
@@ -172,7 +177,7 @@ struct ContentView: View {
     }
     
     guard gameSessionIsAlive == true else { return }
-
+    
     shouldShowAlertAnswer = true
   }
   
@@ -201,9 +206,6 @@ struct ContentView: View {
   }
   
 }
-
-
-
 
 
 #Preview {
