@@ -7,6 +7,27 @@
 
 import SwiftUI
 
+struct FlagImage: View {
+  
+  let imageName: String
+  let shadowColor: Color
+  let shadowRadius: Double
+  let shape: ButtonBorderShape
+  
+  init(imageName: String, shadowColor: Color = .red, shadowRadius: Double = 5, shape: ButtonBorderShape = .capsule) {
+    self.imageName = imageName
+    self.shadowColor = shadowColor
+    self.shadowRadius = shadowRadius
+    self.shape = shape
+  }
+  
+  var body: some View {
+    Image(imageName)
+      .clipShape(shape)
+      .shadow(color: shadowColor, radius: shadowRadius)
+  }
+}
+
 struct ContentView: View {
   @State var countries = Country.all().shuffled()
   
@@ -80,9 +101,7 @@ struct ContentView: View {
               flagTapped(number)
             }
             label: {
-              Image(countries[number])
-                .shadow(color: .red, radius: 5)
-              //                .clipShape(.capsule)
+              FlagImage(imageName: countries[number])
             }
             .alert(answerAlertTitle, isPresented: $shouldShowAlertAnswer) {
               Button("Close", role: .cancel) {
